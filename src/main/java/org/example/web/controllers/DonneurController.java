@@ -104,7 +104,6 @@ public class DonneurController extends HttpServlet {
         donneur.setNotes(notes);
         donneur.setDonorStatus(donorStatus);
 
-
         try {
             donneurService.create(donneur);
             response.sendRedirect(request.getContextPath() + "/donneurs?action=list");
@@ -114,4 +113,5 @@ public class DonneurController extends HttpServlet {
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
     }
+
 }
