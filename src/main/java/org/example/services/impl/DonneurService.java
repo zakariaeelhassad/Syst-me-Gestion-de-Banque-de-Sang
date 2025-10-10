@@ -1,8 +1,8 @@
-package services.impl;
+package org.example.services.impl;
 
-import entities.models.Donneur;
-import repositories.DAO.IDonneurRepository;
-import services.IDonneurService;
+import org.example.entities.models.Donneur;
+import org.example.repositories.DAO.IDonneurRepository;
+import org.example.services.IDonneurService;
 
 import java.util.List;
 
