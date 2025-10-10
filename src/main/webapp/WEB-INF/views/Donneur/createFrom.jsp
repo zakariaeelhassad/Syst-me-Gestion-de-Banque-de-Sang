@@ -131,7 +131,6 @@
             </div>
         </section>
 
-        <!-- Actions -->
         <div class="flex justify-end space-x-4 pt-6 border-t">
             <a href="${pageContext.request.contextPath}/donneurs?action=list"
                class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-lg transition">
