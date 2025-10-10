@@ -1,6 +1,6 @@
-package entities.models;
+package org.example.entities.models;
 
-import entities.enums.DonorStatus;
+import org.example.entities.enums.DonorStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
