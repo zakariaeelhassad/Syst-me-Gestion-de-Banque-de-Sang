@@ -1,6 +1,6 @@
-package services;
+package org.example.services;
 
-import entities.models.Donneur;
+import org.example.entities.models.Donneur;
 
 import java.util.List;
 
