@@ -43,4 +43,8 @@ public abstract class Person {
     @Enumerated(EnumType.STRING)
     @Column( name = "blood_group")
     private BloodGroup bloodGroup;
+
+    @NotBlank
+    @Column(length = 20, nullable = false)
+    private String telephone;
 }

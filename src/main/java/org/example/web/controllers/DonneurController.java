@@ -87,6 +87,7 @@ public class DonneurController extends HttpServlet {
         String sexe = request.getParameter("sexe");
         LocalDate dateNaissance = LocalDate.parse(request.getParameter("dateNaissance"));
         BloodGroup bloodGroup = BloodGroup.valueOf(request.getParameter("bloodGroup").toUpperCase());
+        String telephone = request.getParameter("telephone");
         boolean contreIndication = Boolean.parseBoolean(request.getParameter("contreIndication"));
         int pucheDisponible = Integer.parseInt(request.getParameter("pucheDisponible"));
         String notes = request.getParameter("notes");
@@ -98,7 +99,7 @@ public class DonneurController extends HttpServlet {
         donneur.setCin(cin);
         donneur.setSexe(sexe);
         donneur.setDateNaissance(dateNaissance);
-        donneur.setBloodGroup(bloodGroup);
+        donneur.setTelephone(telephone);
         donneur.setContreIndication(contreIndication);
         donneur.setPucheDisponible(pucheDisponible);
         donneur.setNotes(notes);
@@ -113,5 +114,6 @@ public class DonneurController extends HttpServlet {
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
     }
+
 
 }

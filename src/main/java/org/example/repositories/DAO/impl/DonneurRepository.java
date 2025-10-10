@@ -26,6 +26,9 @@ public class DonneurRepository implements IDonneurRepository {
             tx.begin();
             em.persist(donneur);
             tx.commit();
+            System.out.println("Avant persist: " + donneur);
+            em.persist(donneur);
+            System.out.println("Après persist");
         } catch (Exception e) {
             if (tx.isActive()) tx.rollback();
             e.printStackTrace();

@@ -108,10 +108,18 @@
                 </div>
 
                 <div>
-                    <label for="pocheDisponible" class="block text-sm font-medium text-gray-700 mb-1">Poches Disponibles *</label>
-                    <input type="number" id="pocheDisponible" name="pocheDisponible" required min="0" value="0"
+                    <label for="pucheDisponible" class="block text-sm font-medium text-gray-700 mb-1">Poches Disponibles *</label>
+                    <input type="number" id="pucheDisponible" name="pucheDisponible" required min="0" value="0"
                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
                 </div>
+
+                <div>
+                    <label for="telephone" class="block text-sm font-medium text-gray-700 mb-1">Téléphone *</label>
+                    <input type="text" id="telephone" name="telephone" required maxlength="20"
+                           placeholder="Ex: 0612345678"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                </div>
+
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Contre-indication</label>
