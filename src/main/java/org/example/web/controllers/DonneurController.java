@@ -1,22 +1,20 @@
-package org.example.controllers;
+package org.example.web.controllers;
 
 import org.example.entities.enums.BloodGroup;
 import org.example.entities.enums.DonorStatus;
 import org.example.entities.models.Donneur;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.DAO.IDonneurRepository;
-import org.example.DAO.impl.DonneurRepository;
+import org.example.repositories.DAO.IDonneurRepository;
+import org.example.repositories.DAO.impl.DonneurRepository;
 import org.example.services.IDonneurService;
 import org.example.services.impl.DonneurService;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
-@WebServlet("/donneurs")
 public class DonneurController extends HttpServlet {
 
     private IDonneurRepository donneurRepository;
@@ -64,7 +62,10 @@ public class DonneurController extends HttpServlet {
     }
 
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/views/donneur/create.jsp").forward(request, response);
+        request.setAttribute("bloodGroups", BloodGroup.values());
+
+        request.setAttribute("donorStatuses", DonorStatus.values());
+        request.getRequestDispatcher("/WEB-INF/views/Donneur/createFrom.jsp").forward(request, response);
     }
 
     private void getAllDonneurs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -76,7 +77,7 @@ public class DonneurController extends HttpServlet {
         int id = Integer.parseInt(request.getPathInfo().substring(1));
         Donneur donneur = donneurService.getById(id);
         request.setAttribute("donneur", donneur);
-        request.getRequestDispatcher("/views/donneur/details.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/Donneur/details.jsp").forward(request, response);
     }
 
     private void createDonneur(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -102,6 +103,7 @@ public class DonneurController extends HttpServlet {
         donneur.setPucheDisponible(pucheDisponible);
         donneur.setNotes(notes);
         donneur.setDonorStatus(donorStatus);
+
 
         try {
             donneurService.create(donneur);
