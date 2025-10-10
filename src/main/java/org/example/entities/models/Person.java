@@ -1,6 +1,6 @@
-package entities.models;
+package org.example.entities.models;
 
-import entities.enums.BloodGroup;
+import org.example.entities.enums.BloodGroup;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

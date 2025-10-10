@@ -34,4 +34,5 @@ public class Donneur extends Person {
     @Column(name = "donor_status", nullable = false)
     private DonorStatus donorStatus;
 
+
 }
