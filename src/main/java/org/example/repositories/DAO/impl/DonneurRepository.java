@@ -1,4 +1,4 @@
-package org.example.DAO.impl;
+package org.example.repositories.DAO.impl;
 
 import org.example.config.JPAUtil;
 import org.example.entities.models.Donneur;
@@ -6,7 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
-import org.example.DAO.IDonneurRepository;
+import org.example.repositories.DAO.IDonneurRepository;
 
 import java.util.List;
 
