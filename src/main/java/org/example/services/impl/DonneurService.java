@@ -25,7 +25,7 @@ public class DonneurService implements IDonneurService {
     }
 
     @Override
-    public Donneur getById(int id) {
+    public Donneur getById(String id) {
         return repository.findById(id);
     }
 
@@ -35,10 +35,10 @@ public class DonneurService implements IDonneurService {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(String id) {
         Donneur donneur = repository.findById(id);
         if (donneur != null) {
-            repository.delete(donneur);
+            repository.delete(id);
         }
     }
 }

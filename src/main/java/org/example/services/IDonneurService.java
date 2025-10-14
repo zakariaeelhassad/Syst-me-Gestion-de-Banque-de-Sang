@@ -8,7 +8,7 @@ public interface IDonneurService {
 
     void create (Donneur donneur);
     void update(Donneur donneur);
-    void delete(int id);
+    void delete(String id);
     List<Donneur> getAll();
-    Donneur getById(int id);
+    Donneur getById(String id);
 }

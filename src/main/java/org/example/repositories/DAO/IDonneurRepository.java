@@ -8,7 +8,7 @@ public interface IDonneurRepository {
 
     void create(Donneur donneur);
     void update(Donneur donneur);
-    void delete(Donneur donneur);
-    Donneur findById(int id);
+    void delete(String id);
+    Donneur findById(String id);
     List<Donneur> findAll();
 }

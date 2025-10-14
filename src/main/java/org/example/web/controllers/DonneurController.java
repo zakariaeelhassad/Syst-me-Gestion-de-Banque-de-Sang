@@ -27,18 +27,25 @@ public class DonneurController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("zjhbziurb");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String pathInfo = request.getPathInfo();
         String action = request.getParameter("action");
 
         if (action != null) {
             switch (action) {
                 case "createForm":
-                    showCreateForm(request, response);
+                    chowCreateForm(request, response);
                     break;
                 case "list":
                     getAllDonneurs(request, response);
+                    break;
+                case "update":
+                    showUpdateForm(request, response);
+                    break;
+                case "delete":
+                    deleteDonneur(request, response);
                     break;
                 default:
                     response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -54,66 +61,182 @@ public class DonneurController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String action = request.getParameter("action");
+
         if ("create".equals(action)) {
             createDonneur(request, response);
+        } else if ("update".equals(action)) {
+            updateDonneur(request, response);
+        }else if ("delete" . equals(action)){
+            deleteDonneur(request , response);
         }
     }
 
-    private void showCreateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("bloodGroups", BloodGroup.values());
 
+
+    // ------------------- CREATE -------------------
+    private void chowCreateForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setAttribute("bloodGroups", BloodGroup.values());
         request.setAttribute("donorStatuses", DonorStatus.values());
-        request.getRequestDispatcher("/WEB-INF/views/Donneur/createFrom.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/Donneur/create.jsp").forward(request, response);
     }
 
-    private void getAllDonneurs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void createDonneur(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String nom = request.getParameter("nom");
+            String prenom = request.getParameter("prenom");
+            String cin = request.getParameter("cin");
+            String sexe = request.getParameter("sexe");
+            LocalDate dateNaissance = LocalDate.parse(request.getParameter("dateNaissance"));
+            BloodGroup bloodGroup = BloodGroup.valueOf(request.getParameter("bloodGroup").toUpperCase());
+            String telephone = request.getParameter("telephone");
+            boolean contreIndication = Boolean.parseBoolean(request.getParameter("contreIndication"));
+            int pocheDisponible = Integer.parseInt(request.getParameter("pocheDisponible"));
+            String notes = request.getParameter("notes");
+            DonorStatus donorStatus = DonorStatus.valueOf(request.getParameter("donorStatus").toUpperCase());
+
+            Donneur donneur = new Donneur();
+            donneur.setNom(nom);
+            donneur.setPrenom(prenom);
+            donneur.setCin(cin);
+            donneur.setSexe(sexe);
+            donneur.setDateNaissance(dateNaissance);
+            donneur.setBloodGroup(bloodGroup);
+            donneur.setTelephone(telephone);
+            donneur.setContreIndication(contreIndication);
+            donneur.setPucheDisponible(pocheDisponible);
+            donneur.setNotes(notes);
+            donneur.setDonorStatus(donorStatus);
+
+            donneurService.create(donneur);
+            response.sendRedirect(request.getContextPath() + "/donneurs?action=list");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Une erreur s'est produite lors de l'ajout du donneur.");
+            request.getRequestDispatcher("/WEB-INF/views/Donneur/error.jsp").forward(request, response);
+        }
+    }
+
+    // ------------------- LIST -------------------
+    private void getAllDonneurs(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         request.setAttribute("donneurs", donneurService.getAll());
         request.getRequestDispatcher("/WEB-INF/views/Donneur/list.jsp").forward(request, response);
     }
 
-    private void getDonneurById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getPathInfo().substring(1));
+    // ------------------- DETAILS -------------------
+    private void getDonneurById(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String id = request.getPathInfo().substring(1);
         Donneur donneur = donneurService.getById(id);
+
+        if (donneur == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Donneur introuvable");
+            return;
+        }
+
         request.setAttribute("donneur", donneur);
-        request.getRequestDispatcher("/views/Donneur/details.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/Donneur/details.jsp").forward(request, response);
     }
 
-    private void createDonneur(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String nom = request.getParameter("nom");
-        String prenom = request.getParameter("prenom");
-        String cin = request.getParameter("cin");
-        String sexe = request.getParameter("sexe");
-        LocalDate dateNaissance = LocalDate.parse(request.getParameter("dateNaissance"));
-        BloodGroup bloodGroup = BloodGroup.valueOf(request.getParameter("bloodGroup").toUpperCase());
-        String telephone = request.getParameter("telephone");
-        boolean contreIndication = Boolean.parseBoolean(request.getParameter("contreIndication"));
-        int pucheDisponible = Integer.parseInt(request.getParameter("pucheDisponible"));
-        String notes = request.getParameter("notes");
-        DonorStatus donorStatus = DonorStatus.valueOf(request.getParameter("donorStatus").toUpperCase());
-
-        Donneur donneur = new Donneur();
-        donneur.setNom(nom);
-        donneur.setPrenom(prenom);
-        donneur.setCin(cin);
-        donneur.setSexe(sexe);
-        donneur.setDateNaissance(dateNaissance);
-        donneur.setTelephone(telephone);
-        donneur.setContreIndication(contreIndication);
-        donneur.setPucheDisponible(pucheDisponible);
-        donneur.setNotes(notes);
-        donneur.setDonorStatus(donorStatus);
-
+    // ------------------- UPDATE -------------------
+    private void showUpdateForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
-            donneurService.create(donneur);
-            response.sendRedirect(request.getContextPath() + "/donneurs?action=list");
+            String id = request.getParameter("id");
+            Donneur donneur = donneurService.getById(id);
+
+            if (donneur == null) {
+                request.setAttribute("errorMessage", "Donneur introuvable.");
+                response.sendRedirect(request.getContextPath() + "/donneurs?action=list");
+                return;
+            }
+
+            request.setAttribute("donneur", donneur);
+            request.setAttribute("bloodGroups", BloodGroup.values());
+            request.setAttribute("donorStatuses", DonorStatus.values());
+            request.getRequestDispatcher("/WEB-INF/views/Donneur/update.jsp").forward(request, response);
+
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Une erreur s'est produite lors de l'ajout du donneur.");
-            request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+            request.setAttribute("errorMessage", "Erreur lors du chargement du formulaire de mise à jour.");
+            response.sendRedirect(request.getContextPath() + "/donneurs?action=list");
         }
     }
 
+    private void updateDonneur(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String id = request.getParameter("id");
+            if (id == null || id.isEmpty()) {
+                request.setAttribute("errorMessage", "ID manquant !");
+                request.getRequestDispatcher("/WEB-INF/views/Donneur/update.jsp").forward(request, response);
+                return;
+            }
+
+            Donneur donneur = donneurService.getById(id);
+
+            if (donneur == null) {
+                request.setAttribute("errorMessage", "Donneur introuvable.");
+                response.sendRedirect(request.getContextPath() + "/donneurs?action=list");
+                return;
+            }
+
+            donneur.setNom(request.getParameter("nom"));
+            donneur.setPrenom(request.getParameter("prenom"));
+            donneur.setCin(request.getParameter("cin"));
+            donneur.setSexe(request.getParameter("sexe"));
+            donneur.setDateNaissance(LocalDate.parse(request.getParameter("dateNaissance")));
+            donneur.setBloodGroup(BloodGroup.valueOf(request.getParameter("bloodGroup").toUpperCase()));
+            donneur.setTelephone(request.getParameter("telephone"));
+            donneur.setContreIndication(Boolean.parseBoolean(request.getParameter("contreIndication")));
+            donneur.setPucheDisponible(Integer.parseInt(request.getParameter("pocheDisponible")));
+            donneur.setNotes(request.getParameter("notes"));
+            donneur.setDonorStatus(DonorStatus.valueOf(request.getParameter("donorStatus").toUpperCase()));
+
+            donneurService.update(donneur);
+            request.getSession().setAttribute("successMessage", "Donneur mis à jour avec succès !");
+            response.sendRedirect(request.getContextPath() + "/donneurs?action=list");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Erreur lors de la mise à jour : " + e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/views/Donneur/update.jsp").forward(request, response);
+        }
+    }
+
+    private void deleteDonneur(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String id = request.getParameter("id");
+            if (id == null || id.isEmpty()) {
+                request.setAttribute("errorMessage", "ID manquant !");
+                response.sendRedirect(request.getContextPath() + "/donneurs?action=list");
+                return;
+            }
+
+            Donneur donneur = donneurService.getById(id);
+            if (donneur == null) {
+                request.setAttribute("errorMessage", "Donneur introuvable !");
+                response.sendRedirect(request.getContextPath() + "/donneurs?action=list");
+                return;
+            }
+
+            donneurService.delete(id);
+            request.getSession().setAttribute("successMessage", "Donneur supprimé avec succès !");
+            response.sendRedirect(request.getContextPath() + "/donneurs?action=list");
+;
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Erreur lors de la suppression : " + e.getMessage());
+            response.sendRedirect(request.getContextPath() + "/donneurs?action=list");
+        }
+    }
 
 }

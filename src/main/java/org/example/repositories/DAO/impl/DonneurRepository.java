@@ -54,12 +54,12 @@ public class DonneurRepository implements IDonneurRepository {
     }
 
     @Override
-    public void delete(Donneur donneur) {
+    public void delete(String id) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            Donneur managedDonneur = em.find(Donneur.class, donneur.getId());
+            Donneur managedDonneur = em.find(Donneur.class, id);
             if (managedDonneur != null) {
                 em.remove(managedDonneur);
             }
@@ -73,7 +73,7 @@ public class DonneurRepository implements IDonneurRepository {
     }
 
     @Override
-    public Donneur findById(int id) {
+    public Donneur findById(String id) {
         EntityManager em = emf.createEntityManager();
         try {
             return em.find(Donneur.class, id);
@@ -81,6 +81,7 @@ public class DonneurRepository implements IDonneurRepository {
             em.close();
         }
     }
+
 
     @Override
     public List<Donneur> findAll() {
