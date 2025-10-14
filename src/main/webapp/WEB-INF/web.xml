@@ -1,0 +1,32 @@
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- Déclaration du servlet -->
+    <servlet>
+        <servlet-name>DonneurController</servlet-name>
+        <servlet-class>org.example.web.controllers.DonneurController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ReceveurController</servlet-name>
+        <servlet-class>org.example.web.controllers.ReceveurController</servlet-class>
+    </servlet>
+
+    <!-- Mapping du servlet -->
+    <servlet-mapping>
+        <servlet-name>DonneurController</servlet-name>
+        <url-pattern>/donneurs/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ReceveurController</servlet-name>
+        <url-pattern>/receveurs/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
