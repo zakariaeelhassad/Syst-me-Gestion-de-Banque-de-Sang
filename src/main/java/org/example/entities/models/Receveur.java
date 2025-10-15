@@ -1,4 +1,4 @@
-package entities.models;
+package org.example.entities.models;
 
 import entities.enums.ReceiverPriority;
 import entities.enums.ReceiverState;
