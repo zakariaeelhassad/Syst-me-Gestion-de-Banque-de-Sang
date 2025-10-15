@@ -1,7 +1,5 @@
 package org.example.entities.models;
 
-import entities.enums.ReceiverPriority;
-import entities.enums.ReceiverState;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.example.entities.enums.ReceiverPriority;
+import org.example.entities.enums.ReceiverState;
 
 
 @Data
