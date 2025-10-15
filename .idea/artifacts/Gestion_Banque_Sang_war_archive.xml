@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Gestion_Banque_Sang:war archive">
+    <output-path>$PROJECT_DIR$/out/artifacts/Gestion_Banque_Sang_war_archive</output-path>
+    <root id="archive" name="Gestion_Banque_Sang_war archive.war">
+      <element id="artifact" artifact-name="Gestion_Banque_Sang:war" />
+    </root>
+  </artifact>
+</component>
