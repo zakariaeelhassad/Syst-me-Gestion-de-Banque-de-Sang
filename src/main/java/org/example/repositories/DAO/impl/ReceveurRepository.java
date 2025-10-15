@@ -59,6 +59,7 @@ public class ReceveurRepository implements IReceveurRepository {
             if(managerReceveur != null){
                 em.remove(managerReceveur);
             }
+            tx.commit();
         }catch(Exception e){
             if (tx.isActive()) tx.rollback();
             e.printStackTrace();

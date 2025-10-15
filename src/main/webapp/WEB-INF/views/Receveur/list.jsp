@@ -121,6 +121,11 @@
                 <span class="mr-2 text-xl">➕</span>
                 Nouveau Receveur
             </a>
+            <a href="${pageContext.request.contextPath}/"
+               class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition shadow-lg flex items-center">
+                <span class="mr-2 text-xl">🏠</span>
+                Home
+            </a>
         </div>
 
         <div class="relative w-full md:w-96">
