@@ -56,7 +56,6 @@
     </div>
     <% } %>
 
-    <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 max-w-6xl mx-auto">
         <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500 fade-in" style="animation-delay: 0.1s">
             <div class="flex items-center justify-between">
@@ -73,9 +72,9 @@
         <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-green-500 fade-in" style="animation-delay: 0.2s">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-gray-500 text-sm font-medium">Actifs</p>
+                    <p class="text-gray-500 text-sm font-medium">Disponible</p>
                     <p class="text-3xl font-bold text-green-600">
-                        <%= donneurs != null ? donneurs.stream().filter(d -> "ACTIVE".equals(d.getDonorStatus().name())).count() : 0 %>
+                        <%= donneurs != null ? donneurs.stream().filter(d -> "DISPONIBLE".equals(d.getDonorStatus().name())).count() : 0 %>
                     </p>
                 </div>
                 <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
@@ -113,7 +112,6 @@
         </div>
     </div>
 
-    <!-- Actions Bar -->
     <div class="max-w-6xl mx-auto mb-6 flex flex-col md:flex-row justify-between items-center gap-4 fade-in" style="animation-delay: 0.5s">
         <div class="flex items-center gap-4 w-full md:w-auto">
             <a href="${pageContext.request.contextPath}/donneurs?action=createForm"
@@ -128,16 +126,8 @@
             </a>
         </div>
 
-        <div class="relative w-full md:w-96">
-            <input type="text"
-                   id="searchInput"
-                   placeholder="Rechercher par nom, prénom, CIN..."
-                   class="w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none shadow-sm">
-            <span class="absolute left-4 top-3.5 text-gray-400 text-xl">🔍</span>
-        </div>
     </div>
 
-    <!-- Donneurs Table/Cards -->
     <div class="max-w-6xl mx-auto">
         <% if (donneurs == null || donneurs.isEmpty()) { %>
         <div class="bg-white rounded-2xl shadow-xl p-12 text-center fade-in">
@@ -153,7 +143,6 @@
         </div>
         <% } else { %>
 
-        <!-- Desktop Table View -->
         <div class="hidden md:block bg-white rounded-2xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.6s">
             <div class="overflow-x-auto">
                 <table class="w-full">
@@ -248,7 +237,6 @@
             </div>
         </div>
 
-        <!-- Mobile Cards View -->
         <div class="md:hidden space-y-4" id="donneursCards">
             <% for (Donneur donneur : donneurs) {
                 int age = Period.between(donneur.getDateNaissance(), LocalDate.now()).getYears();
@@ -330,7 +318,6 @@
     </div>
 </div>
 
-<!-- Delete Modal -->
 <div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
         <div class="text-center mb-6">
@@ -362,40 +349,6 @@
 </div>
 
 <script>
-    // Search functionality
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
-
-        // Desktop table rows
-        const rows = document.querySelectorAll('.donneur-row');
-        rows.forEach(row => {
-            const nom = row.dataset.nom;
-            const prenom = row.dataset.prenom;
-            const cin = row.dataset.cin;
-
-            if (nom.includes(searchTerm) || prenom.includes(searchTerm) || cin.includes(searchTerm)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-
-        // Mobile cards
-        const cards = document.querySelectorAll('.donneur-card');
-        cards.forEach(card => {
-            const nom = card.dataset.nom;
-            const prenom = card.dataset.prenom;
-            const cin = card.dataset.cin;
-
-            if (nom.includes(searchTerm) || prenom.includes(searchTerm) || cin.includes(searchTerm)) {
-                card.style.display = '';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-
-    // Delete modal functions
     function confirmDelete(id, name) {
         document.getElementById('deleteNameDisplay').textContent = name + ' (ID: #' + id + ')';
         document.getElementById('deleteIdHidden').value = id;

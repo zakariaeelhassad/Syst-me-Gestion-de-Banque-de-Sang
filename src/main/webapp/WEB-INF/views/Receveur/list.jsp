@@ -127,14 +127,6 @@
                 Home
             </a>
         </div>
-
-        <div class="relative w-full md:w-96">
-            <input type="text"
-                   id="searchInput"
-                   placeholder="Rechercher par nom, prénom, CIN..."
-                   class="w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none shadow-sm">
-            <span class="absolute left-4 top-3.5 text-gray-400 text-xl">🔍</span>
-        </div>
     </div>
 
     <!-- Receveurs Table/Cards -->
@@ -371,39 +363,6 @@
 </div>
 
 <script>
-    // Search functionality
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
-
-        // Desktop table rows
-        const rows = document.querySelectorAll('.receveur-row');
-        rows.forEach(row => {
-            const nom = row.dataset.nom;
-            const prenom = row.dataset.prenom;
-            const cin = row.dataset.cin;
-
-            if (nom.includes(searchTerm) || prenom.includes(searchTerm) || cin.includes(searchTerm)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-
-        // Mobile cards
-        const cards = document.querySelectorAll('.receveur-card');
-        cards.forEach(card => {
-            const nom = card.dataset.nom;
-            const prenom = card.dataset.prenom;
-            const cin = card.dataset.cin;
-
-            if (nom.includes(searchTerm) || prenom.includes(searchTerm) || cin.includes(searchTerm)) {
-                card.style.display = '';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-
     // Delete modal functions
     function confirmDelete(id, name) {
         document.getElementById('deleteNameDisplay').textContent = name + ' (ID: #' + id + ')';

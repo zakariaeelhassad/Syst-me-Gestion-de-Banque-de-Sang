@@ -21,7 +21,6 @@
 </head>
 <body class="bg-gradient-to-br from-purple-50 via-white to-pink-50 min-h-screen">
 <div class="container mx-auto px-4 py-8 max-w-4xl">
-    <!-- Header -->
     <div class="text-center mb-8 fade-in">
         <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full mb-4 shadow-lg">
             <span class="text-3xl">🩺</span>
@@ -32,7 +31,6 @@
         <p class="text-gray-600">Remplissez tous les champs pour enregistrer un nouveau receveur</p>
     </div>
 
-    <!-- Form -->
     <div class="bg-white rounded-2xl shadow-xl p-8 fade-in border border-gray-100" style="animation-delay: 0.1s">
         <% if (request.getAttribute("errorMessage") != null) { %>
         <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded">
@@ -43,7 +41,6 @@
         <form action="${pageContext.request.contextPath}/receveurs" method="post" class="space-y-6">
             <input type="hidden" name="action" value="create">
 
-            <!-- Informations Personnelles -->
             <div class="border-b border-gray-200 pb-6">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
                     <span class="text-2xl mr-2">👤</span>
@@ -87,7 +84,6 @@
                 </div>
             </div>
 
-            <!-- Informations Médicales -->
             <div class="border-b border-gray-200 pb-6">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
                     <span class="text-2xl mr-2">🏥</span>
@@ -132,7 +128,6 @@
                 </div>
             </div>
 
-            <!-- Buttons -->
             <div class="flex space-x-4 pt-4">
                 <a href="${pageContext.request.contextPath}/receveurs?action=list"
                    class="flex-1 text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition shadow-md">
