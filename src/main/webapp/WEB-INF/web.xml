@@ -8,6 +8,12 @@
     </welcome-file-list>
 
     <!-- Déclaration du servlet -->
+
+    <servlet>
+        <servlet-name>DonationAssociationController</servlet-name>
+        <servlet-class>org.example.web.controllers.DonationController</servlet-class>
+    </servlet>
+
     <servlet>
         <servlet-name>DonneurController</servlet-name>
         <servlet-class>org.example.web.controllers.DonneurController</servlet-class>
@@ -18,6 +24,7 @@
         <servlet-class>org.example.web.controllers.ReceveurController</servlet-class>
     </servlet>
 
+
     <!-- Mapping du servlet -->
     <servlet-mapping>
         <servlet-name>DonneurController</servlet-name>
@@ -27,6 +34,11 @@
     <servlet-mapping>
         <servlet-name>ReceveurController</servlet-name>
         <url-pattern>/receveurs/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DonationAssociationController</servlet-name>
+        <url-pattern>/donations/*</url-pattern>
     </servlet-mapping>
 
 </web-app>
