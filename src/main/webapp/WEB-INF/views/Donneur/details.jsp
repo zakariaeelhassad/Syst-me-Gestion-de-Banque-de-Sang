@@ -22,7 +22,6 @@
 </head>
 <body class="bg-gradient-to-br from-blue-50 via-white to-cyan-50 min-h-screen">
 <div class="container mx-auto px-4 py-8 max-w-5xl">
-    <!-- Header -->
     <div class="text-center mb-8 fade-in">
         <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full mb-4 shadow-lg pulse-animation">
             <span class="text-4xl">🩸</span>
@@ -33,7 +32,6 @@
         <p class="text-gray-600">Informations complètes du donneur #<%= donneur.getId() %></p>
     </div>
 
-    <!-- Quick Actions -->
     <div class="flex justify-center space-x-4 mb-8 fade-in" style="animation-delay: 0.1s">
         <a href="${pageContext.request.contextPath}/donneurs?action=list"
            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-lg transition shadow-md flex items-center">
@@ -49,11 +47,8 @@
         </button>
     </div>
 
-    <!-- Main Content -->
     <div class="grid md:grid-cols-3 gap-6">
-        <!-- Left Column - Profile Summary -->
         <div class="md:col-span-1">
-            <!-- Profile Card -->
             <div class="bg-white rounded-2xl shadow-xl p-8 text-center fade-in border border-gray-100" style="animation-delay: 0.2s">
                 <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <span class="text-5xl"><%= "M".equals(donneur.getSexe()) ? "👨" : "👩" %></span>
@@ -74,7 +69,6 @@
                     </div>
                 </div>
 
-                <!-- Status Badge -->
                 <div class="mb-4">
                     <span class="inline-block px-4 py-2 <%=
                         donneur.getDonorStatus().name().equals("ACTIVE") ? "bg-green-500" :
@@ -86,7 +80,6 @@
                     </span>
                 </div>
 
-                <!-- Contre-indication Badge -->
                 <div>
                     <span class="inline-block px-4 py-2 <%=
                         donneur.getContreIndication() ? "bg-red-100 text-red-800 border border-red-300" : "bg-green-100 text-green-800 border border-green-300"
@@ -96,7 +89,6 @@
                 </div>
             </div>
 
-            <!-- Quick Stats -->
             <div class="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl shadow-xl p-6 mt-6 text-white fade-in" style="animation-delay: 0.3s">
                 <h3 class="text-xl font-bold mb-4 flex items-center">
                     <span class="mr-2">📊</span>
@@ -119,9 +111,7 @@
             </div>
         </div>
 
-        <!-- Right Column - Detailed Information -->
         <div class="md:col-span-2 space-y-6">
-            <!-- Personal Information -->
             <div class="bg-white rounded-2xl shadow-xl p-8 fade-in border border-gray-100" style="animation-delay: 0.25s">
                 <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center border-b border-gray-200 pb-4">
                     <span class="text-3xl mr-3">👤</span>
@@ -157,7 +147,6 @@
                 </div>
             </div>
 
-            <!-- Medical Information -->
             <div class="bg-white rounded-2xl shadow-xl p-8 fade-in border border-gray-100" style="animation-delay: 0.3s">
                 <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center border-b border-gray-200 pb-4">
                     <span class="text-3xl mr-3">🏥</span>
@@ -192,7 +181,6 @@
                 </div>
             </div>
 
-            <!-- Notes Section -->
             <% if (donneur.getNotes() != null && !donneur.getNotes().trim().isEmpty()) { %>
             <div class="bg-white rounded-2xl shadow-xl p-8 fade-in border border-gray-100" style="animation-delay: 0.35s">
                 <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center border-b border-gray-200 pb-4">
@@ -205,7 +193,6 @@
             </div>
             <% } %>
 
-            <!-- Alert/Warning Section -->
             <% if (donneur.getContreIndication()) { %>
             <div class="bg-red-50 border-l-4 border-red-500 rounded-lg p-6 fade-in" style="animation-delay: 0.4s">
                 <div class="flex items-start">
@@ -233,7 +220,6 @@
     </div>
 </div>
 
-<!-- Modal de Confirmation de Suppression -->
 <div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
         <div class="text-center mb-6">
