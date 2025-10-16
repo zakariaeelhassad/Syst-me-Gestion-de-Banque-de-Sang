@@ -183,9 +183,9 @@
                             <%= donneur.getCin() %>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-bold">
-                                    <%= donneur.getBloodGroup() %>
-                                </span>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-bold">
+                                <%= donneur.getBloodGroup().getDisplayName() %>
+                            </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             <%= donneur.getTelephone() %>

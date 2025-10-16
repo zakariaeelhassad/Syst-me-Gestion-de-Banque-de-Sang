@@ -61,7 +61,9 @@
                 <div class="space-y-3 mb-6">
                     <div class="bg-red-50 border-2 border-red-200 rounded-lg p-3">
                         <p class="text-sm text-gray-600 mb-1">Groupe Sanguin</p>
-                        <p class="text-3xl font-bold text-red-600"><%= donneur.getBloodGroup() %></p>
+                        <p class="text-3xl font-bold text-red-600">
+                            <%= donneur.getBloodGroup().getDisplayName() %>
+                        </p>
                     </div>
                     <div class="bg-green-50 border-2 border-green-200 rounded-lg p-3">
                         <p class="text-sm text-gray-600 mb-1">Poches Disponibles</p>
@@ -155,7 +157,9 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="bg-red-50 rounded-lg p-6 border-2 border-red-200">
                         <p class="text-sm text-gray-600 mb-2 font-medium">Groupe Sanguin</p>
-                        <p class="text-3xl font-bold text-red-600"><%= donneur.getBloodGroup() %></p>
+                        <p class="text-3xl font-bold text-red-600">
+                            <%= donneur.getBloodGroup().getDisplayName() %>
+                        </p>
                     </div>
                     <div class="bg-green-50 rounded-lg p-6 border-2 border-green-200">
                         <p class="text-sm text-gray-600 mb-2 font-medium">Poches Disponibles</p>

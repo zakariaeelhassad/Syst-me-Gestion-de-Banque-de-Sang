@@ -102,14 +102,20 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Groupe Sanguin *</label>
                         <select name="bloodGroup" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition">
-                            <% if (bloodGroups != null) {
-                                for (BloodGroup bg : bloodGroups) { %>
-                            <option value="<%= bg.name() %>" <%= bg == receveur.getBloodGroup() ? "selected" : "" %>>
-                                <%= bg.name() %>
+                            <option value="">Sélectionner...</option>
+                            <%
+                                if (bloodGroups != null) {
+                                    for (BloodGroup bg : bloodGroups) {
+                            %>
+                            <option value="<%= bg.name() %>" <%= (receveur != null && bg == receveur.getBloodGroup()) ? "selected" : "" %>>
+                                <%= bg.getDisplayName() %>
                             </option>
-                            <% }
-                            } %>
+                            <%
+                                    }
+                                }
+                            %>
                         </select>
+
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Besoin en Poches *</label>

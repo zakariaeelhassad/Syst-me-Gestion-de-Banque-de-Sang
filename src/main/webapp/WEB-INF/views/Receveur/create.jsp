@@ -93,11 +93,15 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Groupe Sanguin *</label>
                         <select name="bloodGroup" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
                             <option value="">Sélectionner...</option>
-                            <% for (BloodGroup bg : BloodGroup.values()) { %>
-                            <option value="<%= bg.name() %>"><%= bg.name() %></option>
-                            <% } %>
+                            <%
+                                for (BloodGroup bg : BloodGroup.values()) {
+                            %>
+                            <option value="<%= bg.name() %>"><%= bg.getDisplayName() %></option>
+                            <%
+                                }
+                            %>
                         </select>
                     </div>
                     <div>

@@ -95,13 +95,11 @@
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
                             <option value="">Sélectionner...</option>
                             <%
-                                BloodGroup[] bloodGroups = (BloodGroup[]) request.getAttribute("bloodGroups");
-                                if (bloodGroups != null) {
-                                    for (BloodGroup bg : bloodGroups) {
+                                BloodGroup[] bloodGroups = BloodGroup.values();
+                                for (BloodGroup bg : bloodGroups) {
                             %>
-                            <option value="<%= bg.name() %>"><%= bg.name() %></option>
+                            <option value="<%= bg.name() %>"><%= bg.getDisplayName() %></option>
                             <%
-                                    }
                                 }
                             %>
                         </select>

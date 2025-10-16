@@ -27,7 +27,6 @@
 <body class="bg-gradient-to-br from-red-50 via-white to-pink-50 min-h-screen">
 
 <div class="container mx-auto px-4 py-8">
-    <!-- Header -->
     <div class="text-center mb-8 fade-in">
         <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-500 to-pink-600 rounded-full mb-4 shadow-lg pulse-animation">
             <span class="text-4xl">❤️</span>
@@ -38,7 +37,6 @@
         <p class="text-gray-600 text-lg">Liste complète des donations de sang</p>
     </div>
 
-    <!-- Success Message -->
     <% if (successMessage != null) { %>
     <div class="max-w-4xl mx-auto mb-6 slide-down">
         <div class="bg-green-50 border-l-4 border-green-500 rounded-lg p-4 shadow-md flex items-center justify-between">
@@ -54,7 +52,6 @@
     </div>
     <% } %>
 
-    <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-5xl mx-auto">
         <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-red-500 fade-in" style="animation-delay: 0.1s">
             <div class="flex items-center justify-between">
@@ -101,7 +98,6 @@
         </div>
     </div>
 
-    <!-- Actions Bar -->
     <div class="max-w-6xl mx-auto mb-6 flex flex-col md:flex-row justify-between items-center gap-4 fade-in" style="animation-delay: 0.4s">
         <div class="flex items-center gap-4 w-full md:w-auto">
             <a href="${pageContext.request.contextPath}/donations?action=create"
@@ -116,16 +112,8 @@
             </a>
         </div>
 
-        <div class="relative w-full md:w-96">
-            <input type="text"
-                   id="searchInput"
-                   placeholder="Rechercher par donneur, receveur..."
-                   class="w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none shadow-sm">
-            <span class="absolute left-4 top-3.5 text-gray-400 text-xl">🔍</span>
-        </div>
     </div>
 
-    <!-- Donations Table/Cards -->
     <div class="max-w-6xl mx-auto">
         <% if (donations == null || donations.isEmpty()) { %>
         <div class="bg-white rounded-2xl shadow-xl p-12 text-center fade-in">
@@ -141,7 +129,6 @@
         </div>
         <% } else { %>
 
-        <!-- Desktop Table View -->
         <div class="hidden md:block bg-white rounded-2xl shadow-xl overflow-hidden fade-in" style="animation-delay: 0.5s">
             <div class="overflow-x-auto">
                 <table class="w-full">
@@ -215,7 +202,6 @@
             </div>
         </div>
 
-        <!-- Mobile Cards View -->
         <div class="md:hidden space-y-4" id="donationsCards">
             <% for (DonationAssociation donation : donations) { %>
             <div class="bg-white rounded-xl shadow-lg p-6 fade-in border-l-4 border-red-500 donation-card"
@@ -262,7 +248,6 @@
     </div>
 </div>
 
-<!-- Delete Modal -->
 <div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
         <div class="text-center mb-6">
@@ -294,35 +279,6 @@
 </div>
 
 <script>
-    // Search functionality
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
-
-        const rows = document.querySelectorAll('.donation-row');
-        rows.forEach(row => {
-            const donneur = row.dataset.donneur;
-            const receveur = row.dataset.receveur;
-
-            if (donneur.includes(searchTerm) || receveur.includes(searchTerm)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-
-        // Mobile cards
-        const cards = document.querySelectorAll('.donation-card');
-        cards.forEach(card => {
-            const donneur = card.dataset.donneur;
-            const receveur = card.dataset.receveur;
-
-            if (donneur.includes(searchTerm) || receveur.includes(searchTerm)) {
-                card.style.display = '';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
 
     function confirmDelete(id) {
         document.getElementById('deleteIdDisplay').textContent = 'Donation #' + id;

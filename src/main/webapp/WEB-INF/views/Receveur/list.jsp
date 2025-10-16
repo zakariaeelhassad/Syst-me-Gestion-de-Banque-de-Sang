@@ -56,8 +56,7 @@
     </div>
     <% } %>
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-6xl mx-auto">
         <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-purple-500 fade-in" style="animation-delay: 0.1s">
             <div class="flex items-center justify-between">
                 <div>
@@ -80,20 +79,6 @@
                 </div>
                 <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                     <span class="text-2xl">🚨</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500 fade-in" style="animation-delay: 0.3s">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-500 text-sm font-medium">En Cours</p>
-                    <p class="text-3xl font-bold text-blue-600">
-                        <%= receveurs != null ? receveurs.stream().filter(r -> "IN_PROGRESS".equals(r.getReceiverState().name())).count() : 0 %>
-                    </p>
-                </div>
-                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span class="text-2xl">⏳</span>
                 </div>
             </div>
         </div>
@@ -187,9 +172,9 @@
                             <%= r.getCin() %>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-bold">
-                                    <%= r.getBloodGroup() %>
-                                </span>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-bold">
+                                <%= r.getBloodGroup().getDisplayName() %>
+                            </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             <%= r.getTelephone() %>

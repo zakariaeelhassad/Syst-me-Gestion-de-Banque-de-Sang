@@ -1,7 +1,29 @@
 package org.example.entities.enums;
 
 public enum BloodGroup {
-    O_NEG , O_POS , A_NEG , A_POS , B_NEG , B_POS , AB_NEG  , AB_POS ;
+    O_NEG("O−"),
+    O_POS("O+"),
+    A_NEG("A−"),
+    A_POS("A+"),
+    B_NEG("B−"),
+    B_POS("B+"),
+    AB_NEG("AB−"),
+    AB_POS("AB+");
+
+    private final String displayName;
+
+    BloodGroup(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    @Override
+    public String toString() {
+        return displayName;
+    }
 
     public boolean canDonateTo(BloodGroup receiver) {
         switch (this) {
