@@ -100,6 +100,19 @@ public class DonneurController extends HttpServlet {
             String notes = request.getParameter("notes");
             DonorStatus donorStatus = DonorStatus.valueOf(request.getParameter("donorStatus").toUpperCase());
 
+            if (!cin.matches("^[A-Za-z]{2}\\d{6}$")) {
+                request.setAttribute("errorMessage", "Le CIN doit contenir 2 lettres suivies de 6 chiffres (ex : AB445577).");
+                request.getRequestDispatcher("/WEB-INF/views/Donneur/create.jsp").forward(request, response);
+                return;
+            }
+
+            int age = java.time.Period.between(dateNaissance, java.time.LocalDate.now()).getYears();
+            if (age < 18 || age > 65) {
+                request.setAttribute("errorMessage", "L'âge du donneur doit être compris entre 18 et 65 ans.");
+                request.getRequestDispatcher("/WEB-INF/views/Donneur/create.jsp").forward(request, response);
+                return;
+            }
+
             Donneur donneur = new Donneur();
             donneur.setNom(nom);
             donneur.setPrenom(prenom);
@@ -122,6 +135,7 @@ public class DonneurController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/Donneur/error.jsp").forward(request, response);
         }
     }
+
 
     // ------------------- LIST -------------------
     private void getAllDonneurs(HttpServletRequest request, HttpServletResponse response)

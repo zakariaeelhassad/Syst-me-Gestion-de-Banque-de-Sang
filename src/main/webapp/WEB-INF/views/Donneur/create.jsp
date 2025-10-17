@@ -33,7 +33,7 @@
     <div class="bg-white rounded-2xl shadow-xl p-8 fade-in border border-gray-100" style="animation-delay: 0.1s">
         <% if (request.getAttribute("errorMessage") != null) { %>
         <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded">
-            <p class="text-red-800"><%= request.getAttribute("errorMessage") %></p>
+            <p class="text-red-800 font-semibold"><%= request.getAttribute("errorMessage") %></p>
         </div>
         <% } %>
 
@@ -48,37 +48,48 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Nom *</label>
-                        <input type="text" name="nom" required
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                        <input type="text" name="nom"
+                               value="<%= request.getParameter("nom") != null ? request.getParameter("nom") : "" %>"
+                               required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Prénom *</label>
-                        <input type="text" name="prenom" required
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                        <input type="text" name="prenom"
+                               value="<%= request.getParameter("prenom") != null ? request.getParameter("prenom") : "" %>"
+                               required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">CIN *</label>
-                        <input type="text" name="cin" required
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                        <input type="text" name="cin"
+                               value="<%= request.getParameter("cin") != null ? request.getParameter("cin") : "" %>"
+                               required
+                               placeholder="Ex : AB112233"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Sexe *</label>
                         <select name="sexe" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
                             <option value="">Sélectionner...</option>
-                            <option value="M">Masculin</option>
-                            <option value="F">Féminin</option>
+                            <option value="M" <%= "M".equals(request.getParameter("sexe")) ? "selected" : "" %>>Masculin</option>
+                            <option value="F" <%= "F".equals(request.getParameter("sexe")) ? "selected" : "" %>>Féminin</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Date de Naissance *</label>
-                        <input type="date" name="dateNaissance" required
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                        <input type="date" name="dateNaissance"
+                               value="<%= request.getParameter("dateNaissance") != null ? request.getParameter("dateNaissance") : "" %>"
+                               required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone *</label>
-                        <input type="tel" name="telephone" required
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                        <input type="tel" name="telephone"
+                               value="<%= request.getParameter("telephone") != null ? request.getParameter("telephone") : "" %>"
+                               required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
                     </div>
                 </div>
             </div>
@@ -92,13 +103,14 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Groupe Sanguin *</label>
                         <select name="bloodGroup" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
                             <option value="">Sélectionner...</option>
                             <%
                                 BloodGroup[] bloodGroups = BloodGroup.values();
                                 for (BloodGroup bg : bloodGroups) {
+                                    String selected = bg.name().equalsIgnoreCase(request.getParameter("bloodGroup")) ? "selected" : "";
                             %>
-                            <option value="<%= bg.name() %>"><%= bg.getDisplayName() %></option>
+                            <option value="<%= bg.name() %>" <%= selected %>><%= bg.getDisplayName() %></option>
                             <%
                                 }
                             %>
@@ -107,14 +119,15 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Statut du Donneur *</label>
                         <select name="donorStatus" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
                             <option value="">Sélectionner...</option>
                             <%
                                 DonorStatus[] donorStatuses = (DonorStatus[]) request.getAttribute("donorStatuses");
                                 if (donorStatuses != null) {
                                     for (DonorStatus ds : donorStatuses) {
+                                        String selected = ds.name().equalsIgnoreCase(request.getParameter("donorStatus")) ? "selected" : "";
                             %>
-                            <option value="<%= ds.name() %>"><%= ds.name() %></option>
+                            <option value="<%= ds.name() %>" <%= selected %>><%= ds.name() %></option>
                             <%
                                     }
                                 }
@@ -123,22 +136,24 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Poches Disponibles *</label>
-                        <input type="number" name="pocheDisponible" required min="0" value="0"
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                        <input type="number" name="pocheDisponible"
+                               value="<%= request.getParameter("pocheDisponible") != null ? request.getParameter("pocheDisponible") : "0" %>"
+                               required min="0"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Contre-indication *</label>
                         <select name="contreIndication" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
-                            <option value="false">Non</option>
-                            <option value="true">Oui</option>
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
+                            <option value="false" <%= "false".equals(request.getParameter("contreIndication")) ? "selected" : "" %>>Non</option>
+                            <option value="true" <%= "true".equals(request.getParameter("contreIndication")) ? "selected" : "" %>>Oui</option>
                         </select>
                     </div>
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Notes</label>
                         <textarea name="notes" rows="4"
                                   placeholder="Informations complémentaires..."
-                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition resize-none"></textarea>
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition resize-none"><%= request.getParameter("notes") != null ? request.getParameter("notes") : "" %></textarea>
                     </div>
                 </div>
             </div>
@@ -164,8 +179,8 @@
                 <ul class="text-blue-800 text-sm space-y-1">
                     <li>• Vérifiez que toutes les informations sont exactes avant validation</li>
                     <li>• Les champs marqués d'un astérisque (*) sont obligatoires</li>
-                    <li>• Assurez-vous que le donneur n'a aucune contre-indication médicale</li>
-                    <li>• Le nombre de poches disponibles peut être modifié ultérieurement</li>
+                    <li>• Le CIN doit comporter 2 lettres suivies de 6 chiffres (ex : AB445577)</li>
+                    <li>• L'âge du donneur doit être entre 18 et 65 ans</li>
                 </ul>
             </div>
         </div>

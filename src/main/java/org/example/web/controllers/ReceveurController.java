@@ -86,6 +86,19 @@ public class ReceveurController extends HttpServlet {
             ReceiverPriority receiverPriority = ReceiverPriority.valueOf(request.getParameter("receiverPriority"));
             ReceiverState receiverState = ReceiverState.valueOf(request.getParameter("receiverState"));
 
+            if (!cin.matches("^[A-Za-z]{2}\\d{6}$")) {
+                request.setAttribute("errorMessage", "Le CIN doit contenir 2 lettres suivies de 6 chiffres (ex : AB445577).");
+                request.getRequestDispatcher("/WEB-INF/views/Receveur/create.jsp").forward(request, response);
+                return;
+            }
+
+            int age = java.time.Period.between(dateNaissance, java.time.LocalDate.now()).getYears();
+            if (age < 18 || age > 65) {
+                request.setAttribute("errorMessage", "L'âge du donneur doit être compris entre 18 et 65 ans.");
+                request.getRequestDispatcher("/WEB-INF/views/Receveur/create.jsp").forward(request, response);
+                return;
+            }
+
             Receveur receveur = new Receveur();
             receveur.setNom(nom);
             receveur.setPrenom(prenom);
