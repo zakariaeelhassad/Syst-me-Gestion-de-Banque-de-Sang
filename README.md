@@ -269,13 +269,13 @@ src/
 ## 📷 Captures d'Écran & Diagrammes
 
 ### Diagramme de Classes UML
-![Diagramme de Classes](docs/uml/class-diagram.png)
+![Diagramme de Classes](images/diagramme_class.png)
 
 ### Captures d'Écran
-![Page Création](docs/screenshots/creation.png)
-![Liste Donneurs](docs/screenshots/donneurs.png)
-![Liste Receveurs](docs/screenshots/receveurs.png)
-![Dashboard](docs/screenshots/dashboard.png)
+![Page Création](images/img1.png)
+![Liste Donneurs](images/img2.png)
+![Liste Receveurs](images/img3.png)
+![Dashboard](images/img4.png)
 
 ---
 

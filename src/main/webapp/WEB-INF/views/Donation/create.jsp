@@ -173,11 +173,24 @@
     const compatibilityText = document.getElementById('compatibilityText');
     const compatibilityDetails = document.getElementById('compatibilityDetails');
 
-    // Check compatibility when selections change
     donneurSelect.addEventListener('change', checkCompatibility);
     receveurSelect.addEventListener('change', checkCompatibility);
 
     function canDonateToJS(donorGroup, receiverGroup) {
+        const normalize = {
+            'O−': 'O_NEG',
+            'O+': 'O_POS',
+            'A−': 'A_NEG',
+            'A+': 'A_POS',
+            'B−': 'B_NEG',
+            'B+': 'B_POS',
+            'AB−': 'AB_NEG',
+            'AB+': 'AB_POS',
+        };
+
+        donorGroup = normalize[donorGroup] || donorGroup;
+        receiverGroup = normalize[receiverGroup] || receiverGroup;
+
         switch (donorGroup) {
             case 'O_NEG':
                 return true;
@@ -194,11 +207,12 @@
             case 'AB_NEG':
                 return ['AB_NEG', 'AB_POS'].includes(receiverGroup);
             case 'AB_POS':
-                return ['AB_POS'].includes(receiverGroup);
+                return receiverGroup === 'AB_POS';
             default:
                 return false;
         }
     }
+
 
     function checkCompatibility() {
         if (!donneurSelect.value || !receveurSelect.value) {
